@@ -19,6 +19,33 @@ class TestStringCalculator(unittest.TestCase):
     def test_newlines_between_numbers(self):
         self.assertEqual(self.calculator.add("1\n2,3"), 6)
 
+    def test_multiple_numbers(self):
+        self.assertEqual(self.calculator.add("1,2,3,4,5"), 15)
+
+    def test_custom_single_character_delimiter(self):
+        self.assertEqual(self.calculator.add("//;\n1;2;3"), 6)
+
+    def test_custom_single_character_delimiter(self):
+        self.assertEqual(self.calculator.add("//;\n1;2;3"), 6)
+
+    def test_custom_multi_character_delimiter(self):
+        self.assertEqual(self.calculator.add("//[***]\n1***2***3"), 6)
+    
+    def test_numbers_larger_than_1000(self):
+        self.assertEqual(self.calculator.add("2,1001"), 2)
+
+    def test_multiple_delimiters(self):
+        self.assertEqual(self.calculator.add("//[*][%]\n1*2%3"), 6)
+
+    def test_multiple_delimiters_with_different_lengths(self):
+        self.assertEqual(self.calculator.add("//[***][%%%]\n1***2%%%3"), 6)
+
+    def test_mixed_numbers_and_numbers_greater_than_1000(self):
+        self.assertEqual(self.calculator.add("2,1000,1001"), 1002)
+
+    def test_mixed_custom_delimiters_and_numbers_larger_than_1000(self):
+        self.assertEqual(self.calculator.add("//[***][%%%]\n1***2%%%1001***3"), 6)
+
 
 if __name__ == '__main__':
     unittest.main()
