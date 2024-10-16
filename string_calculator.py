@@ -27,10 +27,17 @@ class StringCalculator:
     
     def _calculate_sum(self, num_list: list) -> int:
         result = 0
+        negatives = []
         
         for num in num_list:
             if num.strip():
                 value = int(num)
                 if value <= 1000:
                     result += value
+                if value < 0:
+                    negatives.append(value)
+        
+        if negatives:
+            raise ValueError(f"negatives not allowed: {', '.join(map(str, negatives))}")
+        
         return result

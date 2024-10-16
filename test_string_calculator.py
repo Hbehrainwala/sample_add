@@ -46,6 +46,16 @@ class TestStringCalculator(unittest.TestCase):
     def test_mixed_custom_delimiters_and_numbers_larger_than_1000(self):
         self.assertEqual(self.calculator.add("//[***][%%%]\n1***2%%%1001***3"), 6)
 
+    def test_negative_numbers(self):
+        with self.assertRaises(ValueError) as context:
+            self.calculator.add("1,-1,2,-3")
+        self.assertEqual(str(context.exception), "negatives not allowed: -1, -3")
+
+    def test_all_negative_numbers(self):
+        with self.assertRaises(ValueError) as context:
+            self.calculator.add("-1,-2,-3")
+        self.assertEqual(str(context.exception), "negatives not allowed: -1, -2, -3")
+
 
 if __name__ == '__main__':
     unittest.main()
